@@ -1,0 +1,55 @@
+.results-container {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.result-section {
+  margin-bottom: 15px;
+}
+
+.result-section strong {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.result-value {
+  background-color: #fff;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: monospace;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.encoding-map {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.encoding-map li {
+  padding: 5px 0;
+  font-family: monospace;
+}
+
+.map-letter {
+  font-weight: bold;
+  color: #333;
+}
+
+.tree-preview {
+  background-color: #f4f4f4;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: monospace;
+  max-height: 300px;
+  overflow-y: auto;
+  word-wrap: break-word;
+}

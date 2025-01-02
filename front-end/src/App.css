@@ -1,0 +1,57 @@
+.app-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+}
+
+.probabilities-section {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.probabilities-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.probabilities-table th,
+.probabilities-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+.probabilities-table th {
+  background-color: #f4f4f4;
+}
+
+.encoding-section {
+  flex: 2;
+  padding: 20px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+.encoding-section form {
+  margin-bottom: 20px;
+}
+
+.encoding-section h2 {
+  margin-bottom: 10px;
+}
+
+.results-section {
+  margin-top: 20px;
+}
+
+.results-section pre {
+  background-color: #f4f4f4;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow-x: auto;
+}
