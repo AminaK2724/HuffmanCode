@@ -61,7 +61,7 @@ button {
   font-size: 1em;
   border-radius: 5px;
   cursor: pointer;
-  margin: 10px 0;
+  margin: 10px 10px 0 0;
   transition: background-color 0.3s ease;
 }
 
