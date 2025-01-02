@@ -15,9 +15,16 @@ public class HuffmanController {
     @Autowired
     private HuffmanService huffmanService;
 
-    @PostMapping("/encode")
-    public HuffmanResult encode(@RequestBody Map<String, String> request) {
+    @PostMapping("/encode/predefined")
+    public HuffmanResult encodeWithPredefined(@RequestBody Map<String, Object> request) {
+        String text = (String) request.get("text");
+        Map<String, Double> probabilities = (Map<String, Double>) request.get("probabilities");
+        return huffmanService.encodeWithPredefined(text, probabilities);
+    }
+
+    @PostMapping("/encode/dynamic")
+    public HuffmanResult encodeWithDynamic(@RequestBody Map<String, String> request) {
         String text = request.get("text");
-        return huffmanService.encode(text);
+        return huffmanService.encodeWithDynamic(text);
     }
 }

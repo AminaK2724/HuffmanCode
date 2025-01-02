@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import EncodeForm from './components/EncodeForm'
 import DecodeForm from './components/DecodeForm'
 import Results from './components/Results'
@@ -31,11 +31,40 @@ const defaultProbabilities = [
   { letter: 'A', probability: 0.0812 },
   { letter: 'T', probability: 0.091 },
   { letter: 'E', probability: 0.1203 },
+  { letter: ' ', probability: 0.02 },
 ]
 
 const App = () => {
   const [probabilities, setProbabilities] = useState(defaultProbabilities)
   const [result, setResult] = useState(null)
+  const inputRefs = useRef([]) 
+
+  
+  useEffect(() => {
+    const savedProbabilities = localStorage.getItem('probabilities')
+    if (savedProbabilities) {
+      try {
+        const parsedProbabilities = JSON.parse(savedProbabilities)
+
+        
+        if (
+          Array.isArray(parsedProbabilities) &&
+          parsedProbabilities.length === defaultProbabilities.length &&
+          parsedProbabilities.every(
+            (item, index) => item.letter === defaultProbabilities[index].letter && typeof item.probability === 'number',
+          )
+        ) {
+          setProbabilities(parsedProbabilities)
+        } else {
+          
+          setProbabilities(defaultProbabilities)
+        }
+      } catch (error) {
+        
+        setProbabilities(defaultProbabilities)
+      }
+    }
+  }, [])
 
   const updateProbability = (index, newProbability) => {
     const updatedProbabilities = [...probabilities]
@@ -43,8 +72,22 @@ const App = () => {
     setProbabilities(updatedProbabilities)
   }
 
+  const saveProbabilities = () => {
+    localStorage.setItem('probabilities', JSON.stringify(probabilities))
+    alert('Probabilities saved successfully!')
+  }
+
+  const useDefaultProbabilities = () => {
+    setProbabilities(defaultProbabilities)
+    localStorage.setItem('probabilities', JSON.stringify(defaultProbabilities))
+  }
+
   const handleEncode = data => {
     setResult(data)
+  }
+
+  const focusInput = index => {
+    inputRefs.current[index].focus() 
   }
 
   return (
@@ -62,18 +105,24 @@ const App = () => {
             {probabilities.map((item, index) => (
               <tr key={item.letter}>
                 <td>{item.letter}</td>
-                <td>
+                <td className="editable-cell">
                   <input
+                    ref={el => (inputRefs.current[index] = el)} 
                     type="number"
                     step="0.0001"
                     value={item.probability}
                     onChange={e => updateProbability(index, e.target.value)}
                   />
+                  <button className="edit-button" onClick={() => focusInput(index)} title="Edit">
+                    🖋️
+                  </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+        <button onClick={saveProbabilities}>Save Probabilities</button>
+        <button onClick={useDefaultProbabilities}>Use Default Probabilities</button>
       </div>
       <div className="encoding-section">
         <EncodeForm onEncode={handleEncode} probabilities={probabilities} />

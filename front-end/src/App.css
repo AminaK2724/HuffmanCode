@@ -2,56 +2,100 @@
   display: flex;
   justify-content: space-between;
   padding: 20px;
-  font-family: Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
   background-color: #f9f9f9;
+  color: #333;
+  min-height: 100vh;
 }
 
 .probabilities-section {
   flex: 1;
   margin-right: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.probabilities-section h2 {
+  font-size: 1.5em;
+  color: #4a90e2;
+  margin-bottom: 15px;
 }
 
 .probabilities-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .probabilities-table th,
 .probabilities-table td {
-  border: 1px solid #ccc;
-  padding: 8px;
+  border: 1px solid #ddd;
+  padding: 10px;
   text-align: center;
 }
 
 .probabilities-table th {
-  background-color: #f4f4f4;
+  background-color: #f2f2f2;
+  font-weight: bold;
+  color: #555;
 }
 
-.encoding-section {
-  flex: 2;
-  padding: 20px;
+.probabilities-table td input {
+  width: 80%;
+  padding: 5px;
+  font-size: 0.9em;
   border: 1px solid #ccc;
-  background-color: #fff;
+  border-radius: 4px;
+  text-align: center;
+}
+
+button {
+  display: inline-block;
+  background-color: #4a90e2;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1em;
   border-radius: 5px;
+  cursor: pointer;
+  margin: 10px 0;
+  transition: background-color 0.3s ease;
 }
 
-.encoding-section form {
-  margin-bottom: 20px;
+button:hover {
+  background-color: #357ab8;
 }
 
-.encoding-section h2 {
-  margin-bottom: 10px;
+button:active {
+  background-color: #2b6396;
 }
 
-.results-section {
-  margin-top: 20px;
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+
+  .probabilities-section,
+  .encoding-section {
+    margin: 0 0 20px 0;
+  }
 }
 
-.results-section pre {
-  background-color: #f4f4f4;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  overflow-x: auto;
+
+.edit-button {
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  color: #4a90e2;
+  transition: color 0.3s ease;
+}
+
+.edit-button:hover {
+  color: #357ab8;
 }

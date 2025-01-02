@@ -1,24 +1,40 @@
 import React, { useState } from 'react'
-import '../EncodeForm.css' 
+import '../EncodeForm.css'
 
-const EncodeForm = ({ onEncode }) => {
-  const [input, setInput] = useState('')
+const EncodeForm = ({ onEncode, probabilities }) => {
+  const [input, setInput] = useState('') // Input text state
+  const [usePredefined, setUsePredefined] = useState(true) // Toggle for predefined vs dynamic
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleSubmit = async e => {
     e.preventDefault()
 
     if (!/^[A-Z\s]+$/.test(input)) {
-      alert('Invalid input. Please enter uppercase letters only.')
+      setErrorMessage('Input must only contain uppercase letters and spaces.')
       return
     }
 
+    const endpoint = usePredefined
+      ? 'http://localhost:3001/api/huffman/encode/predefined'
+      : 'http://localhost:3001/api/huffman/encode/dynamic'
+
+    const requestBody = usePredefined
+      ? {
+          text: input,
+          probabilities: probabilities.reduce((acc, { letter, probability }) => {
+            acc[letter] = probability
+            return acc
+          }, {}),
+        }
+      : { text: input }
+
     try {
-      const response = await fetch('http://localhost:3001/api/huffman/encode', {
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ text: input }),
+        body: JSON.stringify(requestBody),
       })
 
       if (!response.ok) {
@@ -26,8 +42,10 @@ const EncodeForm = ({ onEncode }) => {
       }
 
       const data = await response.json()
+      setErrorMessage('') // Clear any previous errors
       onEncode(data)
     } catch (error) {
+      setErrorMessage('Error during encoding: ' + error.message)
       console.error('Error during encoding:', error.message)
     }
   }
@@ -35,17 +53,33 @@ const EncodeForm = ({ onEncode }) => {
   return (
     <form onSubmit={handleSubmit} className="encode-form">
       <h2>Encode Text</h2>
-      <input
-        type="text"
-        value={input}
-        onChange={e => setInput(e.target.value)}
-        placeholder="Enter text to encode"
-        required
-        className="text-input"
-      />
-      <button type="submit" className="encode-button">
+      <textarea value={input} onChange={e => setInput(e.target.value)} placeholder="Enter text to encode" required />
+      <div>
+        <label>
+          <input
+            className="radio"
+            type="radio"
+            name="encodingMode"
+            checked={usePredefined}
+            onChange={() => setUsePredefined(true)}
+          />
+          Use Predefined Probabilities
+        </label>
+        <label>
+          <input
+            className="radio"
+            type="radio"
+            name="encodingMode"
+            checked={!usePredefined}
+            onChange={() => setUsePredefined(false)}
+          />
+          Use Dynamic Probabilities
+        </label>
+      </div>
+      <button className="submit" type="submit">
         Encode
       </button>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </form>
   )
 }
