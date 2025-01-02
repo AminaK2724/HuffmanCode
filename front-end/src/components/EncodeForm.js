@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import '../EncodeForm.css'
 
 const EncodeForm = ({ onEncode, probabilities }) => {
-  const [input, setInput] = useState('') // Input text state
-  const [usePredefined, setUsePredefined] = useState(true) // Toggle for predefined vs dynamic
+  const [input, setInput] = useState('') 
+  const [usePredefined, setUsePredefined] = useState(true) 
   const [errorMessage, setErrorMessage] = useState('')
 
   const handleSubmit = async e => {
@@ -42,7 +42,7 @@ const EncodeForm = ({ onEncode, probabilities }) => {
       }
 
       const data = await response.json()
-      setErrorMessage('') // Clear any previous errors
+      setErrorMessage('') 
       onEncode(data)
     } catch (error) {
       setErrorMessage('Error during encoding: ' + error.message)
