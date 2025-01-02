@@ -1,0 +1,17 @@
+# Use an official Maven image with JDK pre-installed as the base image
+FROM maven:3.8.5-openjdk-11
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the backend code into the container
+COPY ./huffman-backend /app
+
+# Package the application using Maven
+RUN mvn clean package
+
+# Expose the application port (replace 8080 with your backend's port)
+EXPOSE 8080
+
+# Set the command to run the application
+CMD ["java", "-jar", "target/*.jar"]
