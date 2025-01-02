@@ -2,8 +2,8 @@ services:
   - name: huffman-backend
     type: web
     env: docker
-    dockerfilePath: ./Dockerfile # Path to your Dockerfile in the root
-    plan: free
+    dockerfilePath: ./Dockerfile 
+    plan: starter 
     autoDeploy: true
     envVars:
       - key: JAVA_HOME
@@ -12,6 +12,6 @@ services:
   - name: huffman-frontend
     type: web
     env: static
-    staticPublishPath: front-end/build # Path to your frontend build folder
+    staticPublishPath: front-end/build 
     buildCommand: npm install && npm run build
-    plan: free
+    plan: starter
