@@ -15,8 +15,8 @@ const EncodeForm = ({ onEncode, probabilities }) => {
     }
 
     const endpoint = usePredefined
-      ? 'http://localhost:3001/api/huffman/encode/predefined'
-      : 'http://localhost:3001/api/huffman/encode/dynamic'
+      ? 'http://localhost:8080/api/huffman/encode/predefined'
+      : 'http://localhost:8080/api/huffman/encode/dynamic'
 
     const requestBody = usePredefined
       ? {

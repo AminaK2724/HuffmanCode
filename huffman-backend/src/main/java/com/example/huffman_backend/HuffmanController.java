@@ -9,7 +9,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/huffman")
-@CrossOrigin(origins = "https://simple-huffman-coding.netlify.app")
+@CrossOrigin(origins = "http://localhost:3000/")
 public class HuffmanController {
 
     @Autowired

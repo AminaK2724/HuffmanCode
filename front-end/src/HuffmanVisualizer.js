@@ -12,7 +12,7 @@ const HuffmanVisualizer = () => {
     e.preventDefault()
 
     try {
-      const response = await fetch('http://localhost:3001/api/huffman/encode', {
+      const response = await fetch('http://localhost:8080/api/huffman/encode', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
